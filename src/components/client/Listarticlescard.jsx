@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import Affichearticle from './Affichearticle'
-import { getArticlesPagination, setLimit, setPage} from "../../../features/articleSlice";
-import Pagination from './Pagination';
-const Listarticles = () => {
+import { getArticlesPagination, setLimit, setPage} from "../../features/articleSlice";
+import Pagination from '../admin/articles/Pagination';
+import Affichearticlecard from './Affichearticlecard';
+const Listarticlescard = () => {
   const dispatch=useDispatch()
   const {page,limit,searchTerm} = useSelector((state)=>state.storearticles);
   const loadarticles=async()=>{
@@ -21,7 +21,7 @@ const handleLimitChange = (event) => {
 
   return (
     <div>
-      <Affichearticle/>
+      <Affichearticlecard/>
       <div style={{ "display": "flex", "justifyContent": "right"}}> 
      <div className="limit-selector-container">
                 
@@ -46,4 +46,4 @@ const handleLimitChange = (event) => {
   )
 }
 
-export default Listarticles
+export default Listarticlescard
