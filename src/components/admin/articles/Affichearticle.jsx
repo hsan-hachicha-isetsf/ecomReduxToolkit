@@ -1,8 +1,11 @@
 import React from 'react'
-import '../../../style.css'
+
 import {  useSelector } from "react-redux";
 
- const Affichearticle = () => {
+
+ 
+
+const Affichearticle = () => {
     const {articles,isLoading,error} = useSelector((state)=>state.storearticles);
   return (
     <div className="table-container">
@@ -52,7 +55,9 @@ import {  useSelector } from "react-redux";
                 
             </tfoot>
     </table>
+         
 )}
+
     </div>    
   )
 }

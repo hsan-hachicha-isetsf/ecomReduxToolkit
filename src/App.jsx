@@ -4,19 +4,25 @@ import Listcategories from "./components/admin/categories/Listcategories";
 import Listscategories from "./components/admin/scategories/Listscategories";
 import Menu from "./components/admin/Menu";
 import Listarticlescard from "./components/client/Listarticlescard";
-
+import Cart from "./components/client/panier/Cart";
+import NavScrolls from "./components/client/NavScrolls";
+import "./style.css"
+import Register from "./components/admin/Register";
 function App() {
  
   return (
     <>
      <Router>
-      <Menu/>
+    {/*<Menu/>*/}  
+    <NavScrolls/>  
 <Routes>
-<Route path="/"  element={<Listarticlescard/>}/>
-
 <Route path="/articles"  element={<Listarticles/>}/>
+
+<Route path="/"  element={<Listarticlescard/>}/>
+<Route path='/cart' element={<Cart/>}/>
 <Route path="/categories"  element={<Listcategories/>}/>
 <Route path="/scategories"  element={<Listscategories/>}/>
+<Route path="/register" element={<Register/>}/>
 </Routes>
 </Router>
     </>

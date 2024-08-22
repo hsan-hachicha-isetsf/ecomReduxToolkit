@@ -2,7 +2,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPage } from '../../../features/articleSlice';
-import '../../../style.css';
+
 
 const Pagination = () => {
   const dispatch = useDispatch();
