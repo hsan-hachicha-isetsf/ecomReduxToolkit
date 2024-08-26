@@ -8,6 +8,7 @@ import Cart from "./components/client/panier/Cart";
 import NavScrolls from "./components/client/NavScrolls";
 import "./style.css"
 import Register from "./components/admin/Register";
+import Login from "./components/admin/Login";
 function App() {
  
   return (
@@ -22,7 +23,8 @@ function App() {
 <Route path='/cart' element={<Cart/>}/>
 <Route path="/categories"  element={<Listcategories/>}/>
 <Route path="/scategories"  element={<Listscategories/>}/>
-<Route path="/register" element={<Register/>}/>
+<Route path="/registre" element={<Register/>}/>
+<Route path="/login" element={<Login/>}/>
 </Routes>
 </Router>
     </>

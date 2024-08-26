@@ -1,4 +1,4 @@
-import * as React from 'react';
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,6 +12,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { register } from '../../features/authSlice';
 
 function Copyright(props) {
   return (
@@ -31,13 +34,28 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function Register() {
+  const [email,setEmail]=useState("")
+  const [password,setPassword]=useState("")
+  const[firstname,setFirstname]=useState("")
+  const[lastname,setLastname]=useState("")
+  const[password2,setPassword2]=useState("")
+const dispatch=useDispatch()
+
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    if(password!=password2){
+      alert ("password no match")
+    }
+    else{
+    const user={
+      email:email,
+      password:password,
+      firstname:firstname,
+      lastname:lastname
+    }
+    dispatch(register(user))
+  }
   };
 
   return (
@@ -63,22 +81,26 @@ export default function Register() {
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
-                  name="firstName"
+                  name="firstname"
                   required
                   fullWidth
-                  id="firstName"
+                  id="firstname"
+                  value={firstname}
                   label="First Name"
                   autoFocus
+                  onChange={(e)=>setFirstname(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
                   required
                   fullWidth
-                  id="lastName"
+                  id="lastname"
                   label="Last Name"
-                  name="lastName"
+                  name="lastname"
                   autoComplete="family-name"
+                  value={lastname}
+                  onChange={(e)=>setLastname(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -89,6 +111,8 @@ export default function Register() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  value={email}
+                  onChange={(e)=>setEmail(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -100,6 +124,21 @@ export default function Register() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  value={password}
+                  onChange={(e)=>setPassword(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password2"
+                  label="Password"
+                  type="password"
+                  id="password2"
+                  autoComplete="new-password"
+                  value={password2}
+                  onChange={(e)=>setPassword2(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -110,10 +149,11 @@ export default function Register() {
               </Grid>
             </Grid>
             <Button
-              type="submit"
+              type="button"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              onClick={(e)=>handleSubmit(e)}
             >
               Sign Up
             </Button>

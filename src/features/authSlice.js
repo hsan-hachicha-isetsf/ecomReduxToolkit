@@ -1,16 +1,31 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
-import { signup } from "../services/authservice"
+import { signin, signup } from "../services/authservice"
 export const register = createAsyncThunk(
     "auth/register",
     async (user, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try{
     const res= await signup(user);
+ 
     return res.data
     }
     catch (error) {
     return rejectWithValue(error.message);
     }});
+
+    export const login = createAsyncThunk(
+        "auth/login",
+        async (user, thunkAPI) => {
+        const { rejectWithValue } = thunkAPI;
+        try{
+        const res= await signin(user);
+     
+        return res.data
+        }
+        catch (error) {
+        return rejectWithValue(error.message);
+        }});
+    
     
     export const authSlice = createSlice({
         name: "auth",
@@ -20,6 +35,7 @@ export const register = createAsyncThunk(
         isSuccess: false,
         isError: false,
         errorMessage: "",
+        status:"",
         isLoggedIn:false,
         },
         extraReducers: (builder) => {
@@ -31,7 +47,7 @@ export const register = createAsyncThunk(
             state.status=null;
             })
             .addCase(register.fulfilled,(state, action) => {
-            state.user=action.payload;
+            //state.user=action.payload.user;
             state.isLoading=false;
             state.status=null;
             state.isSuccess=true
@@ -42,6 +58,26 @@ export const register = createAsyncThunk(
             state.status=action.payload;
             state.user=null
             })
+
+            .addCase(login.pending, (state, action) => {
+                state.isLoading=true;
+                state.status=null;
+                })
+                .addCase(login.fulfilled,(state, action) => {
+                state.user=action.payload.user;
+                state.isLoading=false;
+                state.status=null;
+                state.isSuccess=true
+                state.isLoggedIn=true
+                localStorage.setItem("token",action.payload.token)
+                })
+                .addCase(login.rejected,(state, action) => {
+                state.isLoading=false;
+                state.isError=true
+                state.status=action.payload;
+                state.user=null
+                })
+
         }}
     )
     export default authSlice.reducer;
